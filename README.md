@@ -1,4 +1,4 @@
-# LingoStrat AI：Dialogue-powered Behavior-Tree Strategy 
+# LingoStrat AI：Focused on Strategy Games with Natural Language Interaction
 <p align="center">
 <a href=""><img src="logo (1).png" alt="言策科技，专攻自然语言交互策略游戏" width="250px"></a>
 </p>
