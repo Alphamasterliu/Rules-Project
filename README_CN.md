@@ -1,6 +1,6 @@
 # 言策科技：专注自然语言交互策略游戏
 <p align="center">
-<a href=""><img src="./logo.png" alt="言策科技，专攻自然语言交互策略游戏" width="300px"></a>
+<a href=""><img src="logo (1).png" alt="言策科技，专攻自然语言交互策略游戏" width="300px"></a>
 </p>
 
 <p align="center">
