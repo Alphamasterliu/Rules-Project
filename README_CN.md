@@ -1,6 +1,6 @@
 # 言策科技：专注自然语言交互策略游戏
 <p align="center">
-<a href=""><img src="./logo.png" alt="MetaGPT logo: Enable GPT to work in software company, collaborating to tackle more complex tasks." width="300px"></a>
+<a href=""><img src="./logo.png" alt="言策科技，专攻自然语言交互策略游戏" width="300px"></a>
 </p>
 
 <p align="center">
