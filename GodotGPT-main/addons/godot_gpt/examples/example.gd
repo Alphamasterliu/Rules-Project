@@ -20,6 +20,9 @@ extends Control
 @export var email_input : LineEdit
 @export var password_input : LineEdit
 
+@onready var model_input = $menu/GridContainer/model/model
+
+
 
 enum EXAMPLES {NONE, CHAT, IMAGE}
 var current_example: EXAMPLES = EXAMPLES.NONE
@@ -30,7 +33,42 @@ func _ready():
 	image_button.pressed.connect(image_button_pressed)
 	
 	
-	
+	extract_javascript_code("根据您提供的错误信息，错误发生在第1行的第37个字符。请检查此位置附近的标记和语法是否正确。以下是您提供的代码的修正版本：
+
+```javascript
+module.exports.loop = function() {
+  const harvesters = _.filter(Game.creeps, (creep) => creep.memory.role === 'harvester');
+
+  if (harvesters.length < 2) {
+	const spawn = Game.spawns['Spawn1'];
+	const newName = 'Harvester' + Game.time;
+	console.log('Spawning new harvester: ' + newName);
+	spawn.spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: 'harvester' } });
+  }
+
+  for (const name in Game.creeps) {
+	const creep = Game.creeps[name];
+
+	if (creep.memory.role === 'harvester') {
+	  if (creep.store.getFreeCapacity() > 0) {
+		const sources = creep.room.find(FIND_SOURCES);
+		if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
+		  creep.moveTo(sources[0]);
+		}
+		creep.memory.harvesting = true;
+		creep.say('Harvesting');
+	  } else {
+		if (creep.transfer(Game.spawns['Spawn1'], RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+		  creep.moveTo(Game.spawns['Spawn1']);
+		}
+		creep.memory.harvesting = false;
+	  }
+	}
+  }
+};
+```
+
+请注意，此修正版只是根据您提供的代码进行了格式调整，并没有解决可能存在的其他问题。如果您仍然遇到问题，请提供更多的上下文信息以便我们更好地帮助您。")
 
 func transition_to_example(example: EXAMPLES) -> void:
 	if example == current_example:
@@ -50,7 +88,7 @@ func show_example(example: EXAMPLES) -> void:
 			chat_example.api_key = api_key_input.text
 			chat_example.host = host_input.text
 			chat_example.port = port_input.text
-			
+			chat_example.input_model = model_input.text
 		EXAMPLES.IMAGE:
 			example_container.show()
 			image_example.show()
@@ -97,3 +135,22 @@ func chat_button_pressed() -> void:
 func image_button_pressed() -> void:
 	example_label.text = "Image Example"
 	transition_to_example(EXAMPLES.IMAGE)
+
+
+func extract_javascript_code(input_string: String) -> String:
+	var start_marker := "```javascript"
+	var end_marker := "```"
+	var start_idx := input_string.find(start_marker)
+	print("start_idx : " , start_idx)
+	# Check if the start marker exists
+	if start_idx != -1:
+		var end_idx := input_string.find(end_marker, start_idx + start_marker.length())
+		print("end_idx : " , end_idx)
+		# Check if the end marker exists after the start marker
+		if end_idx != -1:
+			# Extract the JavaScript code
+			print(input_string.substr(start_idx + start_marker.length(), end_idx - (start_idx + start_marker.length())).strip_edges())	
+			return input_string.substr(start_idx + start_marker.length(), end_idx - (start_idx + start_marker.length())).strip_edges()
+
+	# Return the original string if the markers are not found
+	return input_string	

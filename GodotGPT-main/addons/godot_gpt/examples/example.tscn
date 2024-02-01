@@ -186,6 +186,24 @@ placeholder_text = "密码"
 alignment = 1
 secret = true
 
+[node name="model" type="VBoxContainer" parent="menu/GridContainer"]
+layout_mode = 2
+
+[node name="模型选择" type="Label" parent="menu/GridContainer/model"]
+layout_mode = 2
+text = "选择模型
+"
+horizontal_alignment = 1
+
+[node name="model" type="OptionButton" parent="menu/GridContainer/model"]
+layout_mode = 2
+item_count = 2
+selected = 1
+popup/item_0/text = "gpt-3.5-turbo"
+popup/item_0/id = 0
+popup/item_1/text = "gpt-4"
+popup/item_1/id = 1
+
 [node name="button_vbox" type="VBoxContainer" parent="menu/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 4

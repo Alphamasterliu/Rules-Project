@@ -1,14 +1,23 @@
 # This script extends the HBoxContainer node and is designed to provide a user interface 
 # for submitting text prompts. It contains a TextEdit for input and a Button for submission.
 
-extends HBoxContainer
+extends VBoxContainer
 
 # Exported variable for setting a placeholder text in the TextEdit.
 @export_multiline var text_box_placeholder: String
 
 # References to the child nodes: a TextEdit for entering prompts and a Button for submission.
-@onready var text_box: TextEdit = $prompt_input_text
-@onready var button: Button = $submit_button
+#@onready var text_box: TextEdit = $prompt_input_text
+#@onready var button: Button = $submit_button
+
+@onready var text_box = $HBoxContainer/prompt_input_text
+@onready var button = $HBoxContainer/submit_button
+
+@onready var text_edit = $SystemPrompt/TextEdit
+@onready var check_box = $SystemPrompt/CheckBox
+
+
+
 
 # State variable to check if a submission is in progress (e.g., waiting for an API response).
 var loading: bool = false
@@ -36,7 +45,15 @@ func submit_prompt() -> void:
 	# Clear the TextEdit.
 	text_box.text = ""
 	# Emit the "prompt_submitted" signal with the entered prompt.
-	prompt_submitted.emit(prompt)
+	print("check_box.toggle_mode : ", check_box.toggle_mode)
+	var final_prompt
+	if  check_box.button_pressed:
+		final_prompt = get_code_system_prompt() + get_main_code() + prompt
+	
+	else:
+		final_prompt = text_edit.text + prompt
+	
+	prompt_submitted.emit(final_prompt)
 
 # Function to update the Button's state based on whether the system is in a loading state.
 func set_button_state(_loading: bool) -> void:
@@ -50,3 +67,19 @@ func set_button_state(_loading: bool) -> void:
 		# If not in loading state, reset the Button's text to "Submit" and enable it.
 		button.text = "Submit"
 		button.disabled = false
+
+func get_code_system_prompt()->String:
+	var system_prompt = "我正在玩一款叫做'Screeps World' 的游戏，请根据我的需求写js代码。切记只回复代码内容module.exports.loop中代码内容，我需要直接粘贴代码，不要回复任何和代码无关的信息。这是我现在的代码："
+	return system_prompt
+
+func get_main_code()->String:
+	var file_name = "main.js"
+	var file_path = "res://" + file_name
+	var code 
+	if FileAccess.file_exists(file_path):
+		var main_js = FileAccess.open(file_path, FileAccess.READ)
+		code = main_js.get_as_text()
+		return code
+	else: 
+		print("FILE PATH INVALID")
+		return ""

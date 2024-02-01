@@ -47,20 +47,38 @@ size_flags_vertical = 3
 layout_mode = 2
 text_box_placeholder = "Ask ChatGPT a question!"
 
-[node name="submit_button" parent="VBoxContainer/prompt_input" index="1"]
-text = "提交"
-
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-placeholder_text = "文件名称"
+text = "main"
+placeholder_text = "文件名"
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "将上个回复内容写入该文件名称"
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="StartMarkerInput" type="LineEdit" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "```js"
+placeholder_text = "正则起始，默认```js"
+
+[node name="EndMarkerInput" type="LineEdit" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "```"
+placeholder_text = "正则结束，默认```"
+
+[node name="RefactorButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "修复代码"
+
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RefactorButton" to="." method="_on_refactor_button_pressed"]
 
 [editable path="VBoxContainer/prompt_input"]

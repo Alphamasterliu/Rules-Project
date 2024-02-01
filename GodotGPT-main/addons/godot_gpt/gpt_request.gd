@@ -12,7 +12,8 @@ class_name GPTRequest
 ## Maximum amount of tokens in request
 @export var max_tokens: int = 1024
 ## Which ChatGPT model to use
-@export var model: String = "gpt-3.5-turbo"
+#@export var model: String = "gpt-3.5-turbo"
+@export var model: String = "gpt-4"
 ## API key used in request to OpenAI ChatGPT
 @export var api_key: String
 ## URL endpoint to send requests to
@@ -20,6 +21,7 @@ class_name GPTRequest
 
 var host:String
 var port:int
+var input_model:String
 
 @export_group("Functions")
 enum FUNCTION_MODES {
@@ -120,7 +122,7 @@ func gpt_completions_request(messages: Array[Dictionary]) -> Error:
 		"messages": messages,
 		"temperature": temperature,
 		"max_tokens": max_tokens,
-		"model": model
+		"model": input_model
 	}
 	
 	var compiled_functions: Array[Dictionary] = []

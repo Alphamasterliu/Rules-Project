@@ -3,19 +3,35 @@
 [ext_resource type="Script" path="res://addons/godot_gpt/examples/common/prompt_input/prompt_input_text.gd" id="1_p7rkl"]
 [ext_resource type="Script" path="res://addons/godot_gpt/examples/common/prompt_input/prompt_input.gd" id="1_u5coi"]
 
-[node name="prompt_input" type="HBoxContainer"]
+[node name="prompt_input" type="VBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_u5coi")
 
-[node name="prompt_input_text" type="TextEdit" parent="."]
+[node name="SystemPrompt" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextEdit" type="TextEdit" parent="SystemPrompt"]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CheckBox" type="CheckBox" parent="SystemPrompt"]
+layout_mode = 2
+button_pressed = true
+text = "使用自带SP"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="prompt_input_text" type="TextEdit" parent="HBoxContainer"]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 size_flags_horizontal = 3
 caret_multiple = false
 script = ExtResource("1_p7rkl")
 
-[node name="submit_button" type="Button" parent="."]
+[node name="submit_button" type="Button" parent="HBoxContainer"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 text = "Submit"
